@@ -1,0 +1,117 @@
+1 STEP
+Створи компоненти 
+<Searchbar>, 
+<ImageGallery>, 
+<ImageGalleryItem>, 
+<Loader>, 
+<Button>, 
+<Modal>. 
+Готові стилі компонентів можна взяти у файлі styles.css і підправити під себе, якщо потрібно.
+
+https://emotion.sh/docs/styled
+npm i @emotion/styled @emotion/react
+
+2 STEP
+Для компонентів описані propTypes
+https://www.npmjs.com/package/prop-types
+npm i prop-types
+
+
+3 STEP
+Інструкція Pixabay API
+Зареєструйся та отримай приватний ключ доступу. 
+Для HTTP-запитів використовуй публічний сервіс пошуку зображень Pixabay.
+
+URL-рядок HTTP-запиту.
+https://pixabay.com/api/?q=cat&page=1&key=your_key&image_type=photo&orientation=horizontal&per_page=12
+
+Pixabay API підтримує пагінацію, за замовчуванням параметр page дорівнює 1. 
+Нехай у відповіді надходить по 12 об'єктів, встановлено в параметрі per_page. 
+Не забудь, що під час пошуку за новим ключовим словом, необхідно скидати значення page до 1.
+
+У відповіді від апі приходить масив об'єктів, в яких тобі цікаві лише наступні властивості:
+    id - унікальний ідентифікатор
+    webformatURL - посилання на маленьке зображення для списку карток
+    largeImageURL - посилання на велике зображення для модального вікна
+
+    const BASE_URL = 'https://pixabay.com/api/'
+    const API_KEY = '31327013-dff4de219bc981e4672d8ee09'
+    const FILTERS = '&image_type=photo&orientation=horizontal&safesearch=true'
+    const PAGINATION = `&per_page=${40}&page=${numberPage}`
+    const url = `${BASE_URL}?key=${API_KEY}&q=${encodeURIComponent(name)}${FILTERS}${PAGINATION}`     
+
+4 STEP
+Опис компонента <Searchbar>
+Компонент приймає один проп onSubmit – функцію для передачі значення інпута під час сабміту форми. Створює DOM-елемент наступної структури.
+https://formik.org/docs/overview
+ npm install formik --save
+
+https://www.npmjs.com/package/yup#stringmatchesregex-regex-message-string--function-schema
+npm i yup
+
+https://www.npmjs.com/package/react-icons
+npm i react-icons
+
+
+<header class="searchbar">
+  <form class="form">
+    <button type="submit" class="button">
+      <span class="button-label">Search</span>
+    </button>
+
+    <input
+      class="input"
+      type="text"
+      autocomplete="off"
+      autofocus
+      placeholder="Search images and photos"
+    />
+  </form>
+</header>
+
+5 STEP
+Опис компонента <ImageGallery>
+Список карток зображень. Створює DOM-елемент наступної структури.
+
+<ul class="gallery">
+  <!-- Набір <li> із зображеннями -->
+</ul>
+
+6 STEP
+Опис компонента <ImageGalleryItem>
+Компонент елемента списку із зображенням. Створює DOM-елемент наступної структури.
+
+<li class="gallery-item">
+  <img src="" alt="" />
+</li>
+
+7 STEP
+Опис компонента <Button>
+При натисканні на кнопку Load more повинна довантажуватись наступна порція зображень і рендеритися разом із попередніми. 
+Кнопка повинна рендеритися лише тоді, коли є якісь завантажені зображення. 
+Якщо масив зображень порожній, кнопка не рендериться.
+
+8 STEP
+Опис компонента <Loader>
+Компонент спінера відображається, доки відбувається завантаження зображень. 
+Використовуйте будь-який готовий компонент, наприклад react-loader-spinner або будь-який інший.
+
+https://github.com/mhnpd/react-loader-spinner
+npm install react-loader-spinner --save
+
+
+9 STEP
+Опис компонента <Modal>
+Під час кліку на елемент галереї повинно відкриватися модальне вікно з темним оверлеєм і відображатися велика версія зображення. 
+Модальне вікно повинно закриватися по натисканню клавіші ESC або по кліку на оверлеї.
+
+Зовнішній вигляд схожий на функціонал цього VanillaJS-плагіна, 
+тільки замість білого модального вікна рендериться зображення (у прикладі натисніть Run). 
+https://basiclightbox.electerious.com/
+Анімацію робити не потрібно!
+
+<div class="overlay">
+  <div class="modal">
+    <img src="" alt="" />
+  </div>
+</div>
