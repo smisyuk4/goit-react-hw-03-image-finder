@@ -6,20 +6,60 @@ import { fetchImages } from 'Services/fetchImages';
 export class App extends Component {
   state = {
     search: '',
-    isHideButton: false,
+    numberPage: 1,
+    isHideButton: true,
+    isErrorLoad: false,
   };
 
   handleSubmit = ({ search }) => {
-    this.setState({ search });
+    this.setState({ search, numberPage: 1 });
   };
+
+  showButton = status => {
+    this.setState({ isHideButton: status });
+  };
+
+  incrementPage = () => {
+    //need scroll page
+
+    this.setState(prevState => {
+      return { numberPage: prevState.numberPage + 1 };
+    });
+  };
+
+  showError = (status) => {
+    this.setState({ isErrorLoad: status });
+  }
+
+  scrollWindow = () => {
+    //  const { height: cardHeight } = document.
+    //     querySelector(".gallery")
+    //     .firstElementChild
+    //     .getBoundingClientRect();    
+    // //when draw new markup - do one scrol < 2 height card
+    // window.scrollBy({
+    //     top: cardHeight * 1.8,
+    //     behavior: 'smooth',
+    // });    
+  }
 
   render() {
     return (
       <div>
         <SearchBar handleSubmit={this.handleSubmit} />
-        {/* <Message text="we are work" /> */}
-        <ImageGallery search={this.state.search} />
-        <ButtonLoadMore />
+
+        {this.state.isErrorLoad && <Message text="status 200, but not images" />}
+        
+        <ImageGallery
+          search={this.state.search}
+          numberPage={this.state.numberPage}
+          showButton={this.showButton}
+          showError={this.showError}
+        />
+
+        {!this.state.isHideButton && (
+          <ButtonLoadMore incrementPage={this.incrementPage} />
+        )}
       </div>
     );
   }
@@ -46,19 +86,21 @@ export class SearchBar extends Component {
           onSubmit={this.searchQuery}
           validationSchema={SearchSchema}
         >
-          <Form>
-            <Field
-              name="search"
-              type="text"
-              autoComplete="off"
-              autoFocus
-              placeholder="Search images and photos"
-            />
-            <ErrorMessage name="search" component="div" />
-            <button type="submit">
-              <span>Search</span>
-            </button>
-          </Form>
+          {({ dirty, isValid }) => (
+            <Form>
+              <Field
+                name="search"
+                type="text"
+                autoComplete="off"
+                autoFocus
+                placeholder="Search images and photos"
+              />
+              <ErrorMessage name="search" component="div" />
+              <button type="submit" disabled={!(isValid && dirty)}>
+                <span>Search</span>
+              </button>
+            </Form>
+          )}
         </Formik>
       </header>
     );
@@ -86,18 +128,34 @@ export class ImageGallery extends Component {
   // skeleton
   // }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.props) {
-      fetchImages(this.props.search)
-        .then(({ hits }) => this.setState({ images: hits }))
+  componentDidUpdate(prevProps, _) {
+    const { search, numberPage } = this.props;
+
+    if (prevProps.search !== search || prevProps.numberPage !== numberPage) {
+      fetchImages(search, numberPage)       
+        .then(({ hits }) => {
+          if (hits.length === 0) {
+            this.setState({ images: [] }) 
+            //elevate
+            this.props.showError(true);
+            this.props.showButton(true);
+            return 
+          }
+          
+          this.setState(prevState => {
+            return { images: [...prevState.images, ...hits] };
+          });
+          //elevate
+          this.props.showError(false);
+          this.props.showButton(false);
+        })
         .catch(error => console.log(error));
     }
   }
 
   render() {
-    console.log(this.state.images);
     return (
-      <ul>
+      <ul className='gallery'>
         {this.state.images.map(image => (
           <ImageGalleryItem
             key={image.id}
@@ -111,16 +169,26 @@ export class ImageGallery extends Component {
   }
 }
 
-export const ImageGalleryItem = ({webformatURL, largeImageURL, tags}) => {
+export const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
   return (
     <li>
-      <img src={webformatURL} alt={tags} large-image={largeImageURL} width="200" height="200"/>
+      <img
+        src={webformatURL}
+        alt={tags}
+        large-image={largeImageURL}
+        width="200"
+        height="200"
+      />
     </li>
   );
 };
 
-export const ButtonLoadMore = () => {
-  return <button type="button">load more</button>;
+export const ButtonLoadMore = ({ incrementPage }) => {
+  return (
+    <button type="button" onClick={incrementPage}>
+      load more
+    </button>
+  );
 };
 
 export const Modal = () => {
