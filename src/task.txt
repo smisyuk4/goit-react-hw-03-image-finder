@@ -1,6 +1,6 @@
 1 STEP
 Створи компоненти 
-<Searchbar>, 
+<SearchBar>, 
 <ImageGallery>, 
 <ImageGalleryItem>, 
 <Loader>, 
@@ -43,6 +43,9 @@ Pixabay API підтримує пагінацію, за замовчування
 4 STEP
 Опис компонента <Searchbar>
 Компонент приймає один проп onSubmit – функцію для передачі значення інпута під час сабміту форми. Створює DOM-елемент наступної структури.
+
+https://mui.com/material-ui/react-text-field/#form-props
+
 https://formik.org/docs/overview
  npm install formik --save
 
@@ -73,6 +76,8 @@ npm i react-icons
 Опис компонента <ImageGallery>
 Список карток зображень. Створює DOM-елемент наступної структури.
 
+https://mui.com/material-ui/react-image-list/
+
 <ul class="gallery">
   <!-- Набір <li> із зображеннями -->
 </ul>
@@ -90,6 +95,8 @@ npm i react-icons
 При натисканні на кнопку Load more повинна довантажуватись наступна порція зображень і рендеритися разом із попередніми. 
 Кнопка повинна рендеритися лише тоді, коли є якісь завантажені зображення. 
 Якщо масив зображень порожній, кнопка не рендериться.
+
+https://mui.com/material-ui/react-button/
 
 8 STEP
 Опис компонента <Loader>
@@ -115,3 +122,10 @@ https://basiclightbox.electerious.com/
     <img src="" alt="" />
   </div>
 </div>
+
+10 STEP (не обов'язково)
+Хронологія запитів на сервер
+- слово пошуку
+- час
+
+https://mui.com/material-ui/react-timeline/
