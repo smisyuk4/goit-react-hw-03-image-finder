@@ -19,7 +19,7 @@ npm i prop-types
 npm install --save url-prop-type
 
 
-3 STEP
++ 3 STEP
 Інструкція Pixabay API
 Зареєструйся та отримай приватний ключ доступу. 
 Для HTTP-запитів використовуй публічний сервіс пошуку зображень Pixabay.
@@ -42,7 +42,7 @@ Pixabay API підтримує пагінацію, за замовчування
     const PAGINATION = `&per_page=${40}&page=${numberPage}`
     const url = `${BASE_URL}?key=${API_KEY}&q=${encodeURIComponent(name)}${FILTERS}${PAGINATION}`     
 
-4 STEP
++ 4 STEP
 Опис компонента <Searchbar>
 Компонент приймає один проп onSubmit – функцію для передачі значення інпута під час сабміту форми. Створює DOM-елемент наступної структури.
 
@@ -74,7 +74,7 @@ npm i react-icons
   </form>
 </header>
 
-5 STEP
++ 5 STEP
 Опис компонента <ImageGallery>
 Список карток зображень. Створює DOM-елемент наступної структури.
 
@@ -84,7 +84,7 @@ https://mui.com/material-ui/react-image-list/
   <!-- Набір <li> із зображеннями -->
 </ul>
 
-6 STEP
++ 6 STEP
 Опис компонента <ImageGalleryItem>
 Компонент елемента списку із зображенням. Створює DOM-елемент наступної структури.
 
@@ -92,7 +92,7 @@ https://mui.com/material-ui/react-image-list/
   <img src="" alt="" />
 </li>
 
-7 STEP
++ 7 STEP
 Опис компонента <Button>
 При натисканні на кнопку Load more повинна довантажуватись наступна порція зображень і рендеритися разом із попередніми. 
 Кнопка повинна рендеритися лише тоді, коли є якісь завантажені зображення. 
@@ -104,7 +104,7 @@ https://mui.com/material-ui/react-button/
 Опис компонента <Loader>
 Компонент спінера відображається, доки відбувається завантаження зображень. 
 Використовуйте будь-який готовий компонент, наприклад react-loader-spinner або будь-який інший.
-
+https://mhnpd.github.io/react-loader-spinner/docs/components/puff
 https://github.com/mhnpd/react-loader-spinner
 npm install react-loader-spinner --save
 

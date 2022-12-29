@@ -1,10 +1,12 @@
 import { Component } from 'react';
 import { fetchImages } from 'Services/fetchImages';
 import { ImageGalleryItem } from 'components/ImageGalleryItem';
+import { Blocks } from 'react-loader-spinner';
 
 export class ImageGallery extends Component {
   state = {
     images: [],
+    loading: false,
   };
 
   // componentDidMount() {
@@ -15,6 +17,8 @@ export class ImageGallery extends Component {
     const { search, numberPage } = this.props;
 
     if (prevProps.search !== search || prevProps.numberPage !== numberPage) {
+      this.setState({ loading: true });
+
       fetchImages(search, numberPage)
         .then(({ hits }) => {
           if (hits.length === 0) {
@@ -35,22 +39,35 @@ export class ImageGallery extends Component {
           this.props.showError(false);
           this.props.showButton(false);
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log(error))
+        .finally(() => this.setState({ loading: false }));
     }
   }
 
   render() {
     return (
-      <ul className="gallery">
-        {this.state.images.map(image => (
-          <ImageGalleryItem
-            key={image.id}
-            webformatURL={image.webformatURL}
-            largeImageURL={image.largeImageURL}
-            tags={image.tags}
+      <section>
+        {this.state.loading && (
+          <Blocks
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
           />
-        ))}
-      </ul>
+        )}
+        <ul className="gallery">
+          {this.state.images.map(image => (
+            <ImageGalleryItem
+              key={image.id}
+              webformatURL={image.webformatURL}
+              largeImageURL={image.largeImageURL}
+              tags={image.tags}
+            />
+          ))}
+        </ul>
+      </section>
     );
   }
 }

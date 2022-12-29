@@ -1,22 +1,24 @@
 import { Component } from 'react';
 
-import { SearchBar } from 'components/SearchBar'
+import { SearchBar } from 'components/SearchBar';
 import { Message } from 'components/Message';
 import { ImageGallery } from 'components/ImageGallery';
 import { ButtonLoadMore } from 'components/ButtonLoadMore';
 
-
+const INITIAL_VALUE = {
+  numberPage: 1,
+  isHideButton: true,
+  isErrorLoad: false,
+}
 
 export class App extends Component {
   state = {
     search: '',
-    numberPage: 1,
-    isHideButton: true,
-    isErrorLoad: false,
+    ...INITIAL_VALUE
   };
 
   handleSubmit = ({ search }) => {
-    this.setState({ search, numberPage: 1 });
+    this.setState({ search, ...INITIAL_VALUE });
   };
 
   showButton = status => {
@@ -31,29 +33,31 @@ export class App extends Component {
     });
   };
 
-  showError = (status) => {
+  showError = status => {
     this.setState({ isErrorLoad: status });
-  }
+  };
 
   scrollWindow = () => {
     //  const { height: cardHeight } = document.
     //     querySelector(".gallery")
     //     .firstElementChild
-    //     .getBoundingClientRect();    
+    //     .getBoundingClientRect();
     // //when draw new markup - do one scrol < 2 height card
     // window.scrollBy({
     //     top: cardHeight * 1.8,
     //     behavior: 'smooth',
-    // });    
-  }
+    // });
+  };
 
   render() {
     return (
       <div>
         <SearchBar handleSubmit={this.handleSubmit} />
 
-        {this.state.isErrorLoad && <Message text="status 200, but not images" />}
-        
+        {this.state.isErrorLoad && (
+          <Message text="status 200, but not images" />
+        )}
+       
         <ImageGallery
           search={this.state.search}
           numberPage={this.state.numberPage}
