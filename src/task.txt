@@ -1,4 +1,4 @@
-1 STEP
++ 1 STEP
 Створи компоненти 
 <SearchBar>, 
 <ImageGallery>, 
@@ -11,10 +11,12 @@
 https://emotion.sh/docs/styled
 npm i @emotion/styled @emotion/react
 
-2 STEP
++ 2 STEP
 Для компонентів описані propTypes
 https://www.npmjs.com/package/prop-types
+https://github.com/jaebradley/url-prop-type
 npm i prop-types
+npm install --save url-prop-type
 
 
 3 STEP

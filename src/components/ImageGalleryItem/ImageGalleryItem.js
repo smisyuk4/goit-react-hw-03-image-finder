@@ -1,3 +1,6 @@
+import PropTypes from 'prop-types';
+import urlPropType from 'url-prop-type';
+
 export const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
   return (
     <li>
@@ -10,4 +13,10 @@ export const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
       />
     </li>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  webformatURL: urlPropType.isRequired,
+  largeImageURL: urlPropType.isRequired,
+  tags: PropTypes.string.isRequired,
 };
