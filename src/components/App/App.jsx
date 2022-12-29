@@ -1,7 +1,11 @@
 import { Component } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { fetchImages } from 'Services/fetchImages';
+
+import { SearchBar } from 'components/SearchBar'
+import { Message } from 'components/Message';
+import { ImageGallery } from 'components/ImageGallery';
+import { ButtonLoadMore } from 'components/ButtonLoadMore';
+
+
 
 export class App extends Component {
   state = {
@@ -64,139 +68,3 @@ export class App extends Component {
     );
   }
 }
-
-const SearchSchema = Yup.object().shape({
-  search: Yup.string()
-    .trim()
-    .min(2, 'Need more than 2 characters!')
-    .max(10, 'Less than 10 characters required!'),
-});
-
-export class SearchBar extends Component {
-  searchQuery = (values, { resetForm }) => {
-    this.props.handleSubmit(values);
-    resetForm({ values: '' });
-  };
-
-  render() {
-    return (
-      <header>
-        <Formik
-          initialValues={{ search: '' }}
-          onSubmit={this.searchQuery}
-          validationSchema={SearchSchema}
-        >
-          {({ dirty, isValid }) => (
-            <Form>
-              <Field
-                name="search"
-                type="text"
-                autoComplete="off"
-                autoFocus
-                placeholder="Search images and photos"
-              />
-              <ErrorMessage name="search" component="div" />
-              <button type="submit" disabled={!(isValid && dirty)}>
-                <span>Search</span>
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </header>
-    );
-  }
-}
-
-export const Message = ({ text }) => {
-  return (
-    <div>
-      <p>{text}</p>
-    </div>
-  );
-};
-
-export const Loader = () => {
-  return <div>now i load</div>;
-};
-
-export class ImageGallery extends Component {
-  state = {
-    images: [],
-  };
-
-  // componentDidMount() {
-  // skeleton
-  // }
-
-  componentDidUpdate(prevProps, _) {
-    const { search, numberPage } = this.props;
-
-    if (prevProps.search !== search || prevProps.numberPage !== numberPage) {
-      fetchImages(search, numberPage)       
-        .then(({ hits }) => {
-          if (hits.length === 0) {
-            this.setState({ images: [] }) 
-            //elevate
-            this.props.showError(true);
-            this.props.showButton(true);
-            return 
-          }
-          
-          this.setState(prevState => {
-            return { images: [...prevState.images, ...hits] };
-          });
-          //elevate
-          this.props.showError(false);
-          this.props.showButton(false);
-        })
-        .catch(error => console.log(error));
-    }
-  }
-
-  render() {
-    return (
-      <ul className='gallery'>
-        {this.state.images.map(image => (
-          <ImageGalleryItem
-            key={image.id}
-            webformatURL={image.webformatURL}
-            largeImageURL={image.largeImageURL}
-            tags={image.tags}
-          />
-        ))}
-      </ul>
-    );
-  }
-}
-
-export const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
-  return (
-    <li>
-      <img
-        src={webformatURL}
-        alt={tags}
-        large-image={largeImageURL}
-        width="200"
-        height="200"
-      />
-    </li>
-  );
-};
-
-export const ButtonLoadMore = ({ incrementPage }) => {
-  return (
-    <button type="button" onClick={incrementPage}>
-      load more
-    </button>
-  );
-};
-
-export const Modal = () => {
-  return (
-    <div className="overlay">
-      <div className="modal">
-        <img src="" alt="" />
-      </div>
-    </div>
-  );
-};
