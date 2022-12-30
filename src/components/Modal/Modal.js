@@ -44,14 +44,6 @@ export class Modal extends Component {
   }
 }
 
-// {
-//   /* <Overlay>
-//       <ModalWrp>
-//         {children}
-//       </ModalWrp>
-//     </Overlay> */
-// }
-
 Modal.propTypes = {
   largeImageURL: urlPropType.isRequired,
   tags: PropTypes.string.isRequired,

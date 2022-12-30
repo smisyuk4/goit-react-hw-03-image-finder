@@ -36,6 +36,8 @@ Pixabay API підтримує пагінацію, за замовчування
     webformatURL - посилання на маленьке зображення для списку карток
     largeImageURL - посилання на велике зображення для модального вікна
 
+https://pixabay.com/api/?key=31327013-dff4de219bc981e4672d8ee09&q=bsf&per_page=12&page=1
+
     const BASE_URL = 'https://pixabay.com/api/'
     const API_KEY = '31327013-dff4de219bc981e4672d8ee09'
     const FILTERS = '&image_type=photo&orientation=horizontal&safesearch=true'
@@ -100,7 +102,7 @@ https://mui.com/material-ui/react-image-list/
 
 https://mui.com/material-ui/react-button/
 
-8 STEP
++ 8 STEP
 Опис компонента <Loader>
 Компонент спінера відображається, доки відбувається завантаження зображень. 
 Використовуйте будь-який готовий компонент, наприклад react-loader-spinner або будь-який інший.
@@ -109,7 +111,7 @@ https://github.com/mhnpd/react-loader-spinner
 npm install react-loader-spinner --save
 
 
-9 STEP
++ 9 STEP
 Опис компонента <Modal>
 Під час кліку на елемент галереї повинно відкриватися модальне вікно з темним оверлеєм і відображатися велика версія зображення. 
 Модальне вікно повинно закриватися по натисканню клавіші ESC або по кліку на оверлеї.

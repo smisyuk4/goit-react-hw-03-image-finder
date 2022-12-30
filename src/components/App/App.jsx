@@ -14,12 +14,13 @@ const INITIAL_VALUE = {
 
 export class App extends Component {
   state = {
-    isShowModal: true,
+    isShowModal: false,
+    largeImg: {},
     search: '',
     ...INITIAL_VALUE
   };
 
-  toggleModal = () => {
+  showModal = () => {
     this.setState(({isShowModal}) => ({
       isShowModal: !isShowModal
     }))
@@ -29,7 +30,7 @@ export class App extends Component {
     this.setState({ search, ...INITIAL_VALUE });
   };
 
-  showButton = status => {
+  hideButton = status => {
     this.setState({ isHideButton: status });
   };
 
@@ -57,25 +58,32 @@ export class App extends Component {
     // });
   };
 
+  initialModal = (data) => {
+    this.setState({largeImg: data})
+  }
+
   render() {
+    const {isShowModal, largeImg, isErrorLoad, search, numberPage, isHideButton } = this.state
     return (
       <div>
-        {this.state.isShowModal && <Modal largeImageURL={"https://pixabay.com/get/g5cf265fec443ad37c91b25927e24495add57c82f4457f5c169580e5dfe0db5a20aeac13ded549f500a8a1f28283df0abba7d7e2a96a9b3ff0935b4f398ef67b7_640.jpg"} tags={'alt'} onClose={this.toggleModal} />}
+        {isShowModal && <Modal largeImageURL={largeImg.link} tags={largeImg.alt} onClose={this.showModal} />}
         
         <SearchBar handleSubmit={this.handleSubmit} />
 
-        {this.state.isErrorLoad && (
+        {isErrorLoad && (
           <Message text="status 200, but not images" />
         )}
        
         <ImageGallery
-          search={this.state.search}
-          numberPage={this.state.numberPage}
-          showButton={this.showButton}
+          search={search}
+          numberPage={numberPage}
+          initialModal={this.initialModal}
+          showModal={this.showModal}
+          hideButton={this.hideButton}
           showError={this.showError}
         />
 
-        {!this.state.isHideButton && (
+        {!isHideButton && (
           <ButtonLoadMore incrementPage={this.incrementPage} />
         )}
       </div>
