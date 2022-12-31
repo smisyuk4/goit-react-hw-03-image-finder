@@ -65,7 +65,7 @@ export class ImageGallery extends Component {
 
     showError(false);
     hideButton(false);
-    // console.log('checkContent');
+    console.log('checkContent');
     // if (totalHits === images.length) {
     //   console.log('inside ' + totalHits, images.length);
     //   return hideButton(true);
