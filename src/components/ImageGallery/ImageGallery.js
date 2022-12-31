@@ -17,14 +17,14 @@ export class ImageGallery extends Component {
     images: [...imgTemplate],
   };
 
-  async componentDidUpdate(prevProps, _) {
+  componentDidUpdate(prevProps, _) {
     const { search, numberPage, showError, hideButton } = this.props;
     const { imgPerPage } = this.state;
 
     if (prevProps.search !== search || prevProps.numberPage !== numberPage) {
       this.setState({ loading: true });
 
-      await fetchImages(search, imgPerPage, numberPage)
+      fetchImages(search, imgPerPage, numberPage)
         .then(({ totalHits, hits }) => {
           if (hits.length === 0) {
             this.setState({ ...INITIAL_VALUE });
