@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { fetchImages } from 'services/fetchImages';
+import { fetchImages } from 'Services/fetchImages';
 import { ImageGalleryItem } from 'components/ImageGalleryItem';
 import { Blocks } from 'react-loader-spinner';
 import { imgTemplate } from './ImageTemplate';
