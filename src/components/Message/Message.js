@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types';
+import { ErrorMsg } from './Message.styled';
 
 export const Message = ({ text }) => {
-  return (
-    <div>
-      <p>{text}</p>
-    </div>
-  );
+  return <ErrorMsg>{text}</ErrorMsg>;
 };
 
 Message.propTypes = {

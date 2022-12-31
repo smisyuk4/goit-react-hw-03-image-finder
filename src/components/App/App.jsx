@@ -6,6 +6,7 @@ import { ImageGallery } from 'components/ImageGallery';
 import { ButtonLoadMore } from 'components/ButtonLoadMore';
 import { Modal } from 'components/Modal';
 
+
 const INITIAL_VALUE = {
   numberPage: 1,
   isHideButton: true,
@@ -42,8 +43,12 @@ export class App extends Component {
     });
   };
 
-  showError = status => {
+  showError = status => { 
     this.setState({ isErrorLoad: status });
+
+    setTimeout(() => {
+      this.setState({ isErrorLoad: !status });
+    }, 2000);
   };
 
   scrollWindow = () => {

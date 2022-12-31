@@ -1,6 +1,17 @@
 import { Component } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
+import { IconContext } from 'react-icons';
+import { GiArchiveResearch } from 'react-icons/gi';
 import * as Yup from 'yup';
+
+import {
+  Container,
+  Header,
+  FormWrp,
+  InputWrp,
+  ErrorMsg,
+  ButtonSearch,
+} from './SearchBar.styled';
 
 const SearchSchema = Yup.object().shape({
   search: Yup.string()
@@ -17,29 +28,38 @@ export class SearchBar extends Component {
 
   render() {
     return (
-      <header>
-        <Formik
-          initialValues={{ search: '' }}
-          onSubmit={this.searchQuery}
-          validationSchema={SearchSchema}
-        >
-          {({ dirty, isValid }) => (
-            <Form>
-              <Field
-                name="search"
-                type="text"
-                autoComplete="off"
-                autoFocus
-                placeholder="Search images and photos"
-              />
-              <ErrorMessage name="search" component="div" />
-              <button type="submit" disabled={!(isValid && dirty)}>
-                <span>Search</span>
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </header>
+      <Header>
+        <Container>
+          <Formik
+            initialValues={{ search: '' }}
+            onSubmit={this.searchQuery}
+            validationSchema={SearchSchema}
+          >
+            {({ dirty, isValid }) => (
+              <FormWrp>
+                <InputWrp
+                  name="search"
+                  type="text"
+                  autoComplete="off"
+                  autoFocus
+                  placeholder="Search images and photos"
+                />
+                <ErrorMessage name="search" component={ErrorMsg} />
+                <ButtonSearch type="submit" disabled={!(isValid && dirty)}>
+                  <IconContext.Provider
+                    value={{
+                      size: '30px',
+                      className: 'icon-search',
+                    }}
+                  >
+                    <GiArchiveResearch />
+                  </IconContext.Provider>
+                </ButtonSearch>
+              </FormWrp>
+            )}
+          </Formik>
+        </Container>
+      </Header>
     );
   }
 }

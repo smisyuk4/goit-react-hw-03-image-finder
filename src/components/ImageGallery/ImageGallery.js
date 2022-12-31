@@ -56,7 +56,7 @@ export class ImageGallery extends Component {
         .catch(error => console.log(error))
         .finally(() => this.setState({ loading: false }));
 
-      this.checkContent(showError, hideButton);
+      // this.checkContent(showError, hideButton);
     }
   }
 
@@ -93,16 +93,27 @@ export class ImageGallery extends Component {
 
   render() {
     const { loading, images } = this.state;
+    // const { showError, hideButton } = this.props;
+    // {
+    //   showError(false);
+
+    //   if (totalHits === images.length) {
+    //     console.log('inside ' + totalHits, images.length);
+    //     return hideButton(true);
+    //   }
+
+    //   if (totalHits > images.length) {
+    //     console.log('outside: ' + totalHits, images.length);
+    //     return hideButton(false);
+    //   }
+    // }
 
     return (
       <section>
         {loading && (
           <Blocks
             visible={true}
-            height="80"
-            width="80"
             ariaLabel="blocks-loading"
-            wrapperStyle={{}}
             wrapperClass="blocks-wrapper"
           />
         )}
