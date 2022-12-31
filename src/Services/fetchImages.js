@@ -1,5 +1,4 @@
 export const fetchImages = (name, imgPerPage, numberPage) => {
-  console.log(imgPerPage, numberPage);
   const BASE_URL = 'https://pixabay.com/api/';
   const API_KEY = '31327013-dff4de219bc981e4672d8ee09';
   const FILTERS = '&image_type=photo&orientation=horizontal&safesearch=true';
