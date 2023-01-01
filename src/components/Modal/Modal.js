@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import urlPropType from 'url-prop-type';
-import { Overlay, ModalWrp } from './Modal.styled';
+import { Overlay, ModalWrp, ButtonClose } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -33,10 +33,10 @@ export class Modal extends Component {
     return createPortal(
       <Overlay onClick={this.handleClickOverlay}>
         <ModalWrp>
-          <img src={largeImageURL} alt={tags} />
-          <button onClick={onClose} type="button">
+          <img src={largeImageURL} alt={tags} width="1000" height="700" />
+          <ButtonClose onClick={onClose} type="button">
             close modal
-          </button>
+          </ButtonClose>
         </ModalWrp>
       </Overlay>,
       modalRoot
