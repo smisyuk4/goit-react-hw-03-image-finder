@@ -4,7 +4,7 @@ import { fetchImages } from 'Services/fetchImages';
 import { ImageGalleryItem } from 'components/ImageGalleryItem';
 import { Blocks } from 'react-loader-spinner';
 import { imgTemplate } from './ImageTemplate';
-import { Container } from './ImageGallery.styled';
+import { Container, ImageList } from './ImageGallery.styled';
 
 const INITIAL_VALUE = {
   images: [],
