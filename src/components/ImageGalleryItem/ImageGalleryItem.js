@@ -1,17 +1,20 @@
 import PropTypes from 'prop-types';
 import urlPropType from 'url-prop-type';
+import { ImageListItem } from './ImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
   return (
-    <li>
+    <ImageListItem>
       <img
+        className="image-gallery"
+        large={largeImageURL}
         src={webformatURL}
         alt={tags}
-        large-image={largeImageURL}
-        width="200"
-        height="200"
+        loading="lazy"
+        height="500"
+        width="500"
       />
-    </li>
+    </ImageListItem>
   );
 };
 

@@ -49,7 +49,6 @@ export class SearchBar extends Component {
                   <IconContext.Provider
                     value={{
                       size: '30px',
-                      className: 'icon-search',
                     }}
                   >
                     <GiArchiveResearch />

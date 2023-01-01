@@ -1,11 +1,13 @@
-import styled from '@emotion/styled';
-import ImageList from '@mui/material/ImageList';
+// https://emotion.sh/docs/media-queries
 
-export const Container = styled.div`
+import styled from '@emotion/styled';
+
+export const Container = styled.main`
   margin-right: auto;
   margin-left: auto;
   padding-right: 20px;
   padding-left: 20px;
+  padding-bottom: 20px;
 
   @media screen and (min-width: 768px) {
     max-width: 768px;
@@ -16,9 +18,9 @@ export const Container = styled.div`
   }
 `;
 
-export const ImageListStyles = styled(ImageList)`
-  column-count: 4;
-  column-gap: 10px;
-  /* border: 2px solid black;
-  background-color: grey; */
+export const ImageList = styled.ul`
+  display: grid;
+  max-width: calc(100vw - 48px);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: 16px;
 `;

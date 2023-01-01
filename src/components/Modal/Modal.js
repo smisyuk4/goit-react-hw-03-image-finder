@@ -2,7 +2,9 @@ import { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import urlPropType from 'url-prop-type';
-import { Overlay, ModalWrp, ButtonClose } from './Modal.styled';
+import { IconContext } from 'react-icons';
+import { CgCloseR } from 'react-icons/cg';
+import { Overlay, ModalWrp, ButtonClose, Image } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -33,9 +35,15 @@ export class Modal extends Component {
     return createPortal(
       <Overlay onClick={this.handleClickOverlay}>
         <ModalWrp>
-          <img src={largeImageURL} alt={tags} width="1000" height="700" />
+          <Image src={largeImageURL} alt={tags} width="1000" height="1000" />
           <ButtonClose onClick={onClose} type="button">
-            close modal
+            <IconContext.Provider
+              value={{
+                size: '20px',
+              }}
+            >
+              <CgCloseR />
+            </IconContext.Provider>
           </ButtonClose>
         </ModalWrp>
       </Overlay>,

@@ -84,8 +84,10 @@ export const ButtonSearch = styled.button`
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
+  color: #3f51b5;
 
-  &:hover {
+  &:hover,
+  &:focus {
     opacity: 1;
     background-color: #b2b9e2;
   }
