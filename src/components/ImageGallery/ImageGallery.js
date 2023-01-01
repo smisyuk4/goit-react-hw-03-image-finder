@@ -4,7 +4,7 @@ import { fetchImages } from 'Services/fetchImages';
 // import { ImageGalleryItem } from 'components/ImageGalleryItem';
 import { Blocks } from 'react-loader-spinner';
 import { imgTemplate } from './ImageTemplate';
-import ImageList from '@mui/material/ImageList';
+// import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Container, ImageListStyles } from './ImageGallery.styled';
 
