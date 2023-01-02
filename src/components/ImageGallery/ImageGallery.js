@@ -52,10 +52,19 @@ export class ImageGallery extends Component {
   }
 
   incrementPage = () => {
-    //need scroll page
-
     this.setState(prevState => {
       return { numberPage: prevState.numberPage + 1 };
+    });
+
+    this.scrollWindow();
+  };
+
+  scrollWindow = () => {
+    // window.scrollBy(0, window.innerHeight);
+
+    window.scrollBy({
+      top: window.innerHeight,
+      behavior: 'smooth',
     });
   };
 

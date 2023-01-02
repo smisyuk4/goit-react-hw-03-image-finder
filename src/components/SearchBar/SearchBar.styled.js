@@ -4,8 +4,8 @@ import { Form, Field } from 'formik';
 export const Container = styled.div`
   margin-right: auto;
   margin-left: auto;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: 24px;
+  padding-left: 24px;
 
   @media screen and (min-width: 768px) {
     max-width: 768px;

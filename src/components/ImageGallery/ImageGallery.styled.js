@@ -3,10 +3,12 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   margin-right: auto;
   margin-left: auto;
-  padding-right: 20px;
-  padding-left: 20px;
   padding-bottom: 20px;
 
   @media screen and (min-width: 768px) {
@@ -23,4 +25,6 @@ export const ImageList = styled.ul`
   max-width: calc(100vw - 48px);
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-gap: 16px;
+
+  margin-bottom: 10px;
 `;
