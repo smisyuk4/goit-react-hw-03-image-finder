@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fetchImages } from 'Services/fetchImages';
 import { ImageGalleryItem } from 'components/ImageGalleryItem';
+import { ButtonLoadMore } from 'components/ButtonLoadMore';
 import { Blocks } from 'react-loader-spinner';
 import { imgTemplate } from './ImageTemplate';
 import { Container, ImageList } from './ImageGallery.styled';
@@ -10,6 +11,7 @@ const INITIAL_VALUE = {
   images: [],
   loading: false,
   totalHits: null,
+  numberPage: 1,
   imgPerPage: 12,
 };
 export class ImageGallery extends Component {
@@ -18,64 +20,43 @@ export class ImageGallery extends Component {
     images: [...imgTemplate],
   };
 
-  componentDidUpdate(prevProps, _) {
-    const { search, numberPage, showError, hideButton } = this.props;
-    const { imgPerPage } = this.state;
+  async componentDidUpdate(prevProps, prevState) {
+    const { search, showError } = this.props;
+    const { imgPerPage, numberPage } = this.state;
 
-    if (prevProps.search !== search || prevProps.numberPage !== numberPage) {
+    if (prevProps.search !== search || prevState.numberPage !== numberPage) {
       this.setState({ loading: true });
 
-      fetchImages(search, imgPerPage, numberPage)
-        .then(({ totalHits, hits }) => {
-          if (hits.length === 0) {
-            this.setState({ ...INITIAL_VALUE });
-            showError(true);
-            hideButton(true);
-            return;
+      try {
+        const res = await fetchImages(search, imgPerPage, numberPage);
+        const { totalHits, hits } = res;
+
+        if (hits.length === 0) {
+          this.setState({ ...INITIAL_VALUE });
+          showError(true);
+          return;
+        }
+
+        this.setState(prevState => {
+          if (prevProps.search !== search) {
+            return { images: [...hits], totalHits };
           }
-
-          this.setState(prevState => {
-            if (prevProps.search !== search) {
-              console.log('totalHits ' + totalHits);
-              return { images: [...hits], totalHits };
-            }
-            return { images: [...prevState.images, ...hits] };
-          });
-
-          //elevate
-          // showError(false);
-          // if (totalHits === images.length) {
-          //   console.log('inside ' + totalHits, images.length);
-          //   return hideButton(true);
-          // }
-
-          // if (totalHits > images.length) {
-          //   console.log('outside ' + totalHits, images.length);
-          //   return hideButton(false);
-          // }
-        })
-        .catch(error => console.log(error))
-        .finally(() => this.setState({ loading: false }));
-
-      // this.checkContent(showError, hideButton);
+          return { images: [...prevState.images, ...hits] };
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.setState({ loading: false });
+      }
     }
   }
 
-  checkContent = (showError, hideButton) => {
-    // const { totalHits, images } = this.state;
+  incrementPage = () => {
+    //need scroll page
 
-    showError(false);
-    hideButton(false);
-    console.log('checkContent');
-    // if (totalHits === images.length) {
-    //   console.log('inside ' + totalHits, images.length);
-    //   return hideButton(true);
-    // }
-
-    // if (totalHits > images.length) {
-    //   console.log('outside: ' + totalHits, images.length);
-    //   return hideButton(false);
-    // }
+    this.setState(prevState => {
+      return { numberPage: prevState.numberPage + 1 };
+    });
   };
 
   showLargeImg = ({ target }) => {
@@ -93,21 +74,7 @@ export class ImageGallery extends Component {
   };
 
   render() {
-    const { loading, images } = this.state;
-    // const { showError, hideButton } = this.props;
-    // {
-    //   showError(false);
-
-    //   if (totalHits === images.length) {
-    //     console.log('inside ' + totalHits, images.length);
-    //     return hideButton(true);
-    //   }
-
-    //   if (totalHits > images.length) {
-    //     console.log('outside: ' + totalHits, images.length);
-    //     return hideButton(false);
-    //   }
-    // }
+    const { loading, images, totalHits } = this.state;
 
     return (
       <Container>
@@ -129,13 +96,15 @@ export class ImageGallery extends Component {
             />
           ))}
         </ImageList>
+        {totalHits > images.length && (
+          <ButtonLoadMore incrementPage={this.incrementPage} />
+        )}
       </Container>
     );
   }
 }
+
 ImageGallery.propTypes = {
   search: PropTypes.string.isRequired,
-  numberPage: PropTypes.number.isRequired,
   showError: PropTypes.func.isRequired,
-  hideButton: PropTypes.func.isRequired,
 };
