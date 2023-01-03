@@ -35,4 +35,40 @@ export const imgTemplate = [
     largeImageURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
     tags: 'template',
   },
+  {
+    id: 7,
+    webformatURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    largeImageURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    tags: 'template',
+  },
+  {
+    id: 8,
+    webformatURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    largeImageURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    tags: 'template',
+  },
+  {
+    id: 9,
+    webformatURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    largeImageURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    tags: 'template',
+  },
+  {
+    id: 10,
+    webformatURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    largeImageURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    tags: 'template',
+  },
+  {
+    id: 11,
+    webformatURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    largeImageURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    tags: 'template',
+  },
+  {
+    id: 12,
+    webformatURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    largeImageURL: 'https://i.ibb.co/NLF7CM6/template-min.jpg',
+    tags: 'template',
+  },
 ];
