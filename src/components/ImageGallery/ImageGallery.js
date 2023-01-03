@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import * as Scroll from 'react-scroll';
 import { fetchImages } from 'Services/fetchImages';
 import { ImageGalleryItem } from 'components/ImageGalleryItem';
 import { ButtonLoadMore } from 'components/ButtonLoadMore';
@@ -60,12 +61,15 @@ export class ImageGallery extends Component {
   };
 
   scrollWindow = () => {
+    const scroll = Scroll.animateScroll;
+    scroll.scrollToBottom({ smooth: true, delay: 1000 });
+
     // window.scrollBy(0, window.innerHeight);
 
-    window.scrollBy({
-      top: window.innerHeight,
-      behavior: 'smooth',
-    });
+    // window.scrollBy({
+    //   top: window.innerHeight,
+    //   behavior: 'smooth',
+    // });
   };
 
   showLargeImg = ({ target }) => {

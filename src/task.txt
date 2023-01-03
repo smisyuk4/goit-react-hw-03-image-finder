@@ -129,7 +129,11 @@ https://basiclightbox.electerious.com/
   </div>
 </div>
 
-10 STEP (не обов'язково)
+10 STEP 
+https://www.npmjs.com/package/react-scroll
+
+
+11 STEP (не обов'язково)
 Хронологія запитів на сервер
 - слово пошуку
 - час
